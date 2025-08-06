@@ -27,7 +27,7 @@ const std::vector<uint32_t> gpio{17, 27, 22};
 std::atomic<float> *tp, *hm;
 
 
-static int
+static MHD_Result
 answer_to_connection (void *cls, struct MHD_Connection *connection,
                       const char *url, const char *method,
                       const char *version, const char *upload_data,
@@ -39,7 +39,7 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
   *con_cls = page_p;
   std::string &page = *page_p;
   struct MHD_Response *response;
-  int ret;
+  MHD_Result ret;
   page.clear();
   page+=page_begin;
   page+="Temperature ";
