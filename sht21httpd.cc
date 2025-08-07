@@ -19,6 +19,13 @@
 #include <microhttpd.h>
 #include "i2c.hh"
 
+#ifdef MHD_VERSION
+#if(MHD_VERSION >= 0x00097200)
+#define MY_MHD_VERSION MHD_Result
+#else
+#define MY_MHD_VERSION int
+#endif
+#endif
 
 using std::uint32_t;
 
@@ -27,7 +34,7 @@ const std::vector<uint32_t> gpio{17, 27, 22};
 std::atomic<float> *tp, *hm;
 
 
-static MHD_Result
+static MY_MHD_VERSION
 answer_to_connection (void *cls, struct MHD_Connection *connection,
                       const char *url, const char *method,
                       const char *version, const char *upload_data,
@@ -39,7 +46,7 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
   *con_cls = page_p;
   std::string &page = *page_p;
   struct MHD_Response *response;
-  MHD_Result ret;
+  MY_MHD_VERSION ret;
   page.clear();
   page+=page_begin;
   page+="Temperature ";

@@ -1,13 +1,11 @@
-cmake_minimum_required(VERSION 3.26.5)
+cmake_minimum_required(VERSION 3.0)
 
-project(test)
+project(sht21httpd)
 
-#include_directories(${PROJECT_SOURCE_DIR})
-
-add_executable(test i2c.cc sht21httpd.cc)
+add_executable(sht21httpd i2c.cc sht21httpd.cc)
 
 find_library(MICROHTTPD_LIB microhttpd)
-target_link_libraries(test PRIVATE
+target_link_libraries(sht21httpd PRIVATE
                       ${MICROHTTPD_LIB}
-                      pthread
-                     )
+                     pthread
+                    )
